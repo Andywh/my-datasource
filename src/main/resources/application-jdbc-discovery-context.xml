@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- discovery db 数据源配置-->
+    <bean id="discoveryDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          destroy-method="close" lazy-init="false">
+        <property name="url" value="${jdbc.discovery.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="maxWait" value="${jdbc.maxWait}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
+
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${jdbc.testOnBorrow}"/>
+        <property name="testOnReturn" value="${jdbc.testOnReturn}"/>
+
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"/>
+        <property name="maxOpenPreparedStatements" value="${jdbc.maxOpenPreparedStatements}"/>
+
+        <property name="filters" value="stat"/>
+    </bean>
+
+    <bean id="sqlSessionFactoryDiscovery" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--  切换一下-->
+        <property name="dataSource" ref="discoveryDataSource"/>
+        <!--        <property name="dataSource" ref="discoveryDataSource"/>-->
+        <property name="mapperLocations" value="classpath:mybatis/discovery/*Mapper.xml"/>
+    </bean>
+
+    <bean id="discoveryMapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryDiscovery"/>
+        <property name="basePackage" value="com.joy.datasource.mapper.discovery"/>
+    </bean>
+
+    <!-- discovery db -->
+    <!-- 事务管理器 -->
+    <bean id="discoveryTxManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="discoveryDataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="discoveryTxManager" proxy-target-class="true"/>
+</beans>

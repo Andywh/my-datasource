@@ -1,0 +1,13 @@
+com/joy/datasource/mapper/discovery/CategoryMapper.class
+com/joy/datasource/mapper/ting/AlbumMetadataMapper.class
+com/joy/datasource/model/discovery/CategoryExample.class
+com/joy/datasource/model/ting/AlbumMetadataExample$GeneratedCriteria.class
+com/joy/datasource/model/ting/AlbumMetadataExample.class
+com/joy/datasource/model/discovery/CategoryExample$GeneratedCriteria.class
+com/joy/datasource/model/discovery/Category.class
+com/joy/datasource/model/ting/AlbumMetadataExample$Criterion.class
+com/joy/datasource/model/discovery/CategoryExample$Criteria.class
+com/joy/datasource/model/ting/AlbumMetadataExample$Criteria.class
+com/joy/datasource/model/ting/AlbumMetadata.class
+com/joy/datasource/model/discovery/CategoryExample$Criterion.class
+com/joy/datasource/controller/TestController.class
